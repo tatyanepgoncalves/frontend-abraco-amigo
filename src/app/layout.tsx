@@ -2,7 +2,7 @@ import type { Metadata } from 'next'
 import { Inter, Plus_Jakarta_Sans } from 'next/font/google'
 import './globals.css'
 import { Toaster } from 'sonner'
-import Header from '@/components/header/header'
+import { AuthProvider } from '@/context/AuthContext'
 
 const interSans = Inter({
   variable: '--font-inter',
@@ -28,12 +28,11 @@ export default function RootLayout({
   return (
     <html lang="pt-BR" suppressHydrationWarning>
       <body
-        className={`${interSans.variable} ${plusJakartaSans.variable} flex min-h-full flex-col bg-zinc-50 font-plusJakartaSans`}
+        className={`${interSans.variable} ${plusJakartaSans.variable} flex min-h-full flex-col bg-neutral-50 font-plusJakartaSans`}
         suppressHydrationWarning
       >
         <Toaster position="top-right" richColors />
-        <Header />
-        <main>{children}</main>
+        <AuthProvider>{children}</AuthProvider>
       </body>
     </html>
   )

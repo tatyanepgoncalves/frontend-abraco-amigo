@@ -1,9 +1,5 @@
-import Demandas from '@/components/demandas'
+import { redirect } from 'next/navigation'
 
 export default function Home() {
-  return (
-    <div>
-      <Demandas />
-    </div>
-  )
+  redirect('/entrar')
 }
