@@ -40,10 +40,5 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 
-
-src/app/(system)/
-
 src/components/dashboard/
-src/components/layout/system-layout
-
-src/mocks/
+src/app/(dropdown)/
