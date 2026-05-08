@@ -14,8 +14,8 @@ export default function SystemLayout({
       <main className="flex">
         <Sidebar />
 
-        <section className="flex h-screen min-h-screen w-full flex-col justify-between border border-green-800">
-          <div className="w-full px-6 py-4">{children}</div>
+        <section className="flex h-screen min-h-screen w-full flex-col justify-between">
+          <div className="h-fit w-full px-6 py-4">{children}</div>
           <Footer />
         </section>
       </main>

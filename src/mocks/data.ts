@@ -1,3 +1,22 @@
+export const DEMANDAS_MOCK = [
+  {
+    id: 1,
+    titulo: 'Manutenção Preventiva',
+    categoria: 'Infraestrutura',
+    local: 'São Paulo, SP',
+    descricao: 'Revisão semestral dos sistemas elétricos do bloco A.',
+  },
+  {
+    id: 2,
+    titulo: 'Instalação de Rede',
+    categoria: 'TI',
+    local: 'Curitiba, PR',
+    descricao:
+      'Configuração de novos pontos de acesso Wi-Fi 6 no andar térreo.',
+  },
+  // ... adicione mais conforme necessário
+]
+
 export const MOCK_DEMANDAS = [
   {
     id: '1ac2-uuid-mock',

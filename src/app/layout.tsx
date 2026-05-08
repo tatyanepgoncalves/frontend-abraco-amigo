@@ -1,19 +1,19 @@
 import type { Metadata } from 'next'
-import { Inter, Plus_Jakarta_Sans } from 'next/font/google'
+import { Inter, Public_Sans } from 'next/font/google'
 import './globals.css'
 import { Toaster } from 'sonner'
 import { AuthProvider } from '@/context/AuthContext'
+import { cn } from '@/lib/utils'
 
-const interSans = Inter({
-  variable: '--font-inter',
+const publicSansHeading = Public_Sans({
   subsets: ['latin'],
-  weight: ['400', '500', '600', '700', '800'],
+  variable: '--font-heading',
 })
 
-const plusJakartaSans = Plus_Jakarta_Sans({
-  variable: '--font-plus-jakarta-sans',
+const interSans = Inter({
+  variable: '--font-sans',
   subsets: ['latin'],
-  weight: ['200', '300', '400', '500', '600', '700', '800'],
+  weight: ['400', '500', '600', '700', '800'],
 })
 
 export const metadata: Metadata = {
@@ -26,9 +26,13 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="pt-BR" suppressHydrationWarning>
+    <html
+      className={cn(publicSansHeading.variable)}
+      lang="pt-BR"
+      suppressHydrationWarning
+    >
       <body
-        className={`${interSans.variable} ${plusJakartaSans.variable} flex min-h-full flex-col bg-neutral-50 font-plusJakartaSans`}
+        className={`${interSans.variable} flex min-h-screen flex-col bg-neutral-50 font-sans`}
         suppressHydrationWarning
       >
         <Toaster position="top-right" richColors />
