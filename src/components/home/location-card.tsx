@@ -1,3 +1,6 @@
+'use client'
+
+import { useEffect, useState } from 'react'
 import { Badge } from '@/components/ui/badge'
 import {
   Card,
@@ -13,9 +16,22 @@ import { Label } from '../ui/label'
 import { Progress } from '../ui/progress'
 
 export default function LocationCard({ location }: { location: Location }) {
+  const [hasJoined, setHasJoined] = useState(false)
+
+  // Verifica no carregamento se o usuário já é voluntário
+  useEffect(() => {
+    const saved = JSON.parse(localStorage.getItem('my-subscriptions') || '[]')
+    if (saved.includes(location.id)) {
+      setHasJoined(true)
+    }
+  }, [location.id])
+
   const isCritical = location.needs.some((n) => n.urgency === 'Alta')
+  const currentVolunters = hasJoined
+    ? location.currentVolunteers + 1
+    : location.currentVolunteers
   const volunteerOccupancy = Math.round(
-    (location.currentVolunteers / location.maxVolunteers) * 100
+    (currentVolunters / location.maxVolunteers) * 100
   )
 
   const remainingSlots = location.maxVolunteers - location.currentVolunteers
@@ -58,7 +74,7 @@ export default function LocationCard({ location }: { location: Location }) {
                 Ocupação de Voluntários
               </Label>
               <span className="font-semibold text-slate-500 text-xs">
-                {location.currentVolunteers}%
+                {volunteerOccupancy}%
               </span>
             </div>
 
@@ -85,8 +101,11 @@ export default function LocationCard({ location }: { location: Location }) {
       </CardContent>
 
       <CardFooter className="border-t-0 bg-transparent px-0">
-       
-        <LocationDetailsModal location={location} />
+        <LocationDetailsModal
+          hasJoined={hasJoined}
+          location={location}
+          setHasJoined={setHasJoined}
+        />
       </CardFooter>
     </Card>
   )

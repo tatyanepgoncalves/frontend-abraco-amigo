@@ -20,7 +20,7 @@ export default function Sidebar() {
   return (
     <aside
       className={cn(
-        'sticky left-0 hidden h-screen flex-col justify-between bg-emerald-800 px-4 py-6 shadow-md transition-all duration-500 lg:flex',
+        'sticky left-0 hidden h-screen flex-col justify-between bg-primary px-4 py-6 shadow-md transition-all duration-500 lg:flex',
         isCollapsed ? 'w-20' : 'w-64'
       )}
     >

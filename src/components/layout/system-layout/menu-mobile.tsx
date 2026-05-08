@@ -30,7 +30,7 @@ export default function MenuMobile() {
   }
 
   return (
-    <header className="flex items-center justify-between bg-emerald-800 px-6 py-4 shadow-md transition-all duration-500 lg:hidden">
+    <header className="flex items-center justify-between bg-primary px-6 py-4 shadow-md transition-all duration-500 lg:hidden">
       <Link className="text-neutral-50" href="/dashboard">
         <Handshake className="h-7 w-7" />
       </Link>
@@ -41,7 +41,7 @@ export default function MenuMobile() {
         </SheetTrigger>
 
         <SheetContent
-          className="justify-around border-r-0 bg-emerald-800 px-6"
+          className="justify-around border-r-0 bg-primary px-6"
           showCloseButton={false}
         >
           <nav className="space-y-8">
@@ -66,9 +66,9 @@ export default function MenuMobile() {
             })}
 
             <Button
-              className="w-full justify-start"
+              className="w-full justify-start p-0"
               onClick={handleLogout}
-              variant="buttonSheet"
+              variant="default"
             >
               <LogOut className="h-5 w-5" /> Sair
             </Button>

@@ -15,13 +15,6 @@ export const MOCK_LOCATIONS = [
         quantityReceived: 3,
         urgency: 'Alta',
       },
-      {
-        id: '2',
-        description: 'Necessidade 2',
-        quantityNeeded: 3,
-        quantityReceived: 2,
-        urgency: 'Média',
-      },
     ],
   },
   {
