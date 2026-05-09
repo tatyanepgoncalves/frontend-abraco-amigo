@@ -199,14 +199,7 @@ export function LocationDetailsModal({
           </div>
         )}
 
-        <div className="flex justify-end gap-2 pt-2">
-          <Button
-            className="text-xs"
-            onClick={() => window.print()}
-            variant="outline"
-          >
-            Imprimir Lista
-          </Button>
+        <div className="flex justify-end pt-2">
           <DialogClose asChild>
             <Button className="text-xs" variant="destructive">
               Cancel

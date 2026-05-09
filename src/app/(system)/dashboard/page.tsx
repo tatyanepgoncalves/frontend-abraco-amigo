@@ -24,6 +24,7 @@ export default async function Dashboard() {
             Necessidades Críticas
           </p>
           <p className="font-bold text-2xl">12</p>
+          <p>{}</p>
         </div>
         <div className="rounded-lg border-green-500 border-l-4 bg-white p-4 shadow-sm">
           <p className="font-bold text-slate-500 text-sm uppercase tracking-wider">
