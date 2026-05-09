@@ -68,7 +68,7 @@ export function LocationDetailsModal({
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <Button className="w-full rounded-lg bg-blue-900 py-2 font-semibold text-white hover:bg-slate-800 dark:bg-blue-200 dark:text-black dark:hover:bg-blue-400">
+        <Button className="w-full rounded-lgpy-2 font-semibold ">
           Ver Necessidades Detalhadas
         </Button>
       </DialogTrigger>

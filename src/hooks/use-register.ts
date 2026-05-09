@@ -74,7 +74,7 @@ export default function useRegister() {
 
       // Redireciona para o login após 2 segundos
       setTimeout(() => {
-        router.push('/dashboard')
+        router.push('/home')
       }, 1500)
     }, 1000)
   }

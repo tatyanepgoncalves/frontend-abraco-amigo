@@ -1,16 +1,26 @@
+
+
+import ThemeToggle from '@/components/theme-toggle'
 import Link from 'next/link'
+
 
 export default function Header() {
   return (
-    <header className="flex w-full items-center justify-center bg-white px-6 py-4 shadow-sm">
-      <div className="flex w-full items-center justify-between">
-        <Link className="font-semibold text-blue-800 text-md" href="/entrar">
-          Abraço Amigo
+    <header className='w-full px-6 py-4 border-b bg-card'>
+      <div className='flex items-center justify-between w-full'>
+        <Link href="/">
+          <h1 className="font-bold text-2xl text-foreground">Abraço Amigo</h1>
+          <p className="text-muted-foreground text-sm">
+            Central de Coordenação de Esforços
+          </p>
         </Link>
-        <Link className="text-neutral-500 text-sm" href="*">
-          Ajuda
-        </Link>
+
+       
+        <ThemeToggle />
       </div>
+
     </header>
   )
+
 }
+

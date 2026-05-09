@@ -51,7 +51,7 @@ export default function useLogin() {
         login(usuarioEncontrado)
 
         // Redirecionar baseado no tipo de usuário ou para a home
-        router.push('/dashboard')
+        router.push('/home')
       } else {
         toast.error('E-mail ou senha incorretos.')
       }

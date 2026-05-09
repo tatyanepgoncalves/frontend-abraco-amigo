@@ -34,12 +34,12 @@ export default function Cadastrar() {
   } = useRegister()
 
   return (
-    <section className="h-fit w-full space-y-8 rounded-xl bg-white p-4 shadow-md sm:max-w-xl sm:p-6">
+    <section className="h-fit w-full space-y-8 rounded-xl bg-card p-4 shadow-md sm:max-w-xl sm:p-6">
       <div className="text-center">
-        <h1 className="font-bold text-2xl text-zinc-900 md:text-3xl">
+        <h1 className="font-bold text-2xl text-zinc-900 dark:text-zinc-100 md:text-3xl">
           Crie uma conta
         </h1>
-        <p className="text-neutral-600 text-sm">
+        <p className="text-neutral-600 dark:text-zinc-300 text-sm">
           Inscreva-se no Abraço Amigo para iniciar sua jornada.
         </p>
       </div>
@@ -125,7 +125,7 @@ export default function Cadastrar() {
               <ArrowRight className="h-4 w-4" />
             )}
           </Button>
-          <p className="text-center text-neutral-700 text-xs">
+          <p className="text-center text-neutral-700 text-xs dark:text-zinc-400">
             Já tem conta?{' '}
             <Link className="font-medium hover:underline" href="/entrar">
               Acesse a conta.
