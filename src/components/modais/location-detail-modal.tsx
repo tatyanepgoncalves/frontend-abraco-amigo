@@ -6,6 +6,7 @@ import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
 import {
   Dialog,
+  DialogClose,
   DialogContent,
   DialogDescription,
   DialogHeader,
@@ -60,6 +61,10 @@ export function LocationDetailsModal({
     setHasJoined(false) // Atualiza o pai para subtrair o voluntário
   }
 
+  const handleCancelButton = () => {
+    setShowForm(false)
+  }
+
   return (
     <Dialog>
       <DialogTrigger asChild>
@@ -82,10 +87,14 @@ export function LocationDetailsModal({
 
         {/* TELA 1: FORMULÁRIO (Se clicou em ajudar e ainda não é voluntário) */}
         {showForm && !hasJoined ? (
-          <CandidacyForm location={location} onFinish={handleFinish} />
+          <CandidacyForm
+            location={location}
+            onCancel={handleCancelButton}
+            onFinish={handleFinish}
+          />
         ) : (
           /* TELA 2: LISTA DE NECESSIDADES + FEEDBACK DE SUCESSO */
-          <div className="space-y-6 py-4">
+          <div className="fade-in slide-in-from-top-4 animate-in space-y-6 py-4 duration-500">
             {/* Seção de Status / Botão de Ação */}
             {hasJoined ? (
               /* Card de Sucesso (O que já tínhamos) */
@@ -190,7 +199,7 @@ export function LocationDetailsModal({
           </div>
         )}
 
-        <div className="flex justify-end pt-2">
+        <div className="flex justify-end gap-2 pt-2">
           <Button
             className="text-xs"
             onClick={() => window.print()}
@@ -198,6 +207,11 @@ export function LocationDetailsModal({
           >
             Imprimir Lista
           </Button>
+          <DialogClose asChild>
+            <Button className="text-xs" variant="destructive">
+              Cancel
+            </Button>
+          </DialogClose>
         </div>
       </DialogContent>
     </Dialog>

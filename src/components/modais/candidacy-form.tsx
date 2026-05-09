@@ -15,17 +15,19 @@ import { Textarea } from '@/components/ui/textarea'
 
 interface CandidacyFormProps {
   location: any
+  onCancel: () => void
   onFinish: () => void
 }
 
 export default function CandidacyForm({
   location,
   onFinish,
+  onCancel,
 }: CandidacyFormProps) {
   const [type, setType] = useState<'trabalho' | 'doacao'>('trabalho')
 
   return (
-    <div className="fade-in slide-in-from-bottom-2 animate-in space-y-6 duration-300">
+    <div className="fade-in slide-in-from-bottom-4 animate-in space-y-6 duration-500">
       <div className="space-y-4">
         {/* Escolha do Tipo */}
         <div className="grid grid-cols-2 gap-2 rounded-lg bg-slate-100 p-1">
@@ -105,6 +107,10 @@ export default function CandidacyForm({
         onClick={onFinish}
       >
         Confirmar e Enviar
+      </Button>
+
+      <Button className="w-full bg-red-500 hover:bg-red-800" onClick={onCancel}>
+        Cancelar
       </Button>
     </div>
   )
