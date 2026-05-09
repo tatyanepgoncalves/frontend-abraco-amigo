@@ -68,12 +68,12 @@ export function LocationDetailsModal({
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <Button className="w-full rounded-lg bg-slate-900 py-2 font-semibold text-white hover:bg-slate-800">
+        <Button className="w-full rounded-lg bg-blue-900 py-2 font-semibold text-white hover:bg-slate-800 dark:bg-blue-200 dark:text-black dark:hover:bg-blue-400">
           Ver Necessidades Detalhadas
         </Button>
       </DialogTrigger>
 
-      <DialogContent className="max-h-[90vh] overflow-y-auto bg-slate-50 sm:max-w-125">
+      <DialogContent className="max-h-[90vh] overflow-y-auto sm:max-w-125">
         <DialogHeader>
           <DialogTitle className="font-bold text-2xl">
             {location.name}
@@ -98,12 +98,12 @@ export function LocationDetailsModal({
             {/* Seção de Status / Botão de Ação */}
             {hasJoined ? (
               /* Card de Sucesso (O que já tínhamos) */
-              <div className="rounded-xl border border-emerald-100 bg-emerald-50 p-4 text-center">
-                <p className="font-bold text-emerald-800">
+              <div className="rounded-xl border border-emerald-100 bg-emerald-50 p-4 text-center dark:border-emerald-900 dark:bg-emerald-950">
+                <p className="font-bold text-emerald-800 dark:text-emerald-200">
                   Inscrição realizada com sucesso!
                 </p>
                 <Button
-                  className="text-emerald-700 text-xs hover:text-emerald-800"
+                  className="text-emerald-700 text-xs hover:text-emerald-800 dark:text-emerald-300 dark:hover:text-emerald-400"
                   onClick={handleCancel}
                   variant="ghost"
                 >
@@ -111,12 +111,12 @@ export function LocationDetailsModal({
                 </Button>
               </div>
             ) : (
-              <section className="space-y-4 rounded-xl border border-slate-200 bg-white p-6 text-center shadow-sm">
-                <p className="font-medium text-slate-600 text-sm">
+              <section className="space-y-4 rounded-xl border border-neutral-200 bg-white p-6 text-center shadow-sm dark:border-zinc-700 dark:bg-zinc-800">
+                <p className="font-medium text-sm text-zinc-600 dark:text-zinc-400">
                   Pronto para dar o próximo passo?
                 </p>
                 <Button
-                  className="w-full bg-slate-900"
+                  className="w-full bg-blue-900 hover:bg-blue-800 dark:bg-blue-200 dark:text-zinc-900 dark:hover:bg-blue-300"
                   onClick={() => setShowForm(true)}
                 >
                   Quero me candidatar / Doar
@@ -126,7 +126,7 @@ export function LocationDetailsModal({
 
             {/* Lista de Necessidades */}
             <div className="space-y-4">
-              <h4 className="font-bold text-slate-400 text-sm uppercase tracking-widest">
+              <h4 className="font-bold text-sm text-zinc-400 uppercase tracking-widest dark:text-zinc-300">
                 Itens Necessários
               </h4>
 
@@ -148,15 +148,15 @@ export function LocationDetailsModal({
 
                 return (
                   <div
-                    className="rounded-lg border border-slate-100 bg-slate-50/50 p-4"
+                    className="rounded-lg border border-zinc-100 bg-zinc-50/50 p-4 dark:border-zinc-800 dark:bg-zinc-950/50"
                     key={need.id}
                   >
                     <div className="mb-2 flex items-start justify-between">
                       <div>
-                        <p className="font-bold text-slate-800">
+                        <p className="font-bold text-zinc-800 dark:text-zinc-200">
                           {need.description}
                         </p>
-                        <p className="text-slate-500 text-xs">
+                        <p className="text-slate-500 text-xs dark:text-zinc-400">
                           Meta: {need.quantityNeeded ?? 0} unidades
                         </p>
                       </div>
@@ -186,11 +186,11 @@ export function LocationDetailsModal({
             </div>
 
             {/* Orientações de Entrega */}
-            <div className="flex gap-3 rounded-lg border border-blue-100 bg-blue-50 p-4">
-              <AlertCircle className="h-5 w-5 shrink-0 text-blue-600" />
-              <div className="text-blue-800 text-sm">
+            <div className="flex gap-3 rounded-lg border border-blue-100 bg-blue-50 p-4 dark:border-blue-800 dark:bg-blue-950/50">
+              <AlertCircle className="h-5 w-5 shrink-0 text-blue-600 dark:text-blue-300" />
+              <div className="text-blue-800 text-sm dark:text-blue-100">
                 <p className="font-bold">Como ajudar?</p>
-                <p className="text-blue-700/80">
+                <p className="text-blue-700/80 dark:text-blue-400/80">
                   Entre em contato com <strong>{location.coordinator}</strong>{' '}
                   para agendar a entrega no endereço: {location.address}.
                 </p>

@@ -1,20 +1,16 @@
 import type { Metadata } from 'next'
-import { Inter, Public_Sans } from 'next/font/google'
+import { Public_Sans } from 'next/font/google'
 import './globals.css'
 import { Toaster } from 'sonner'
-import { AuthProvider } from '@/context/AuthContext'
 import { cn } from '@/lib/utils'
+import { Providers } from './providers/providers'
 
 const publicSansHeading = Public_Sans({
   subsets: ['latin'],
   variable: '--font-heading',
 })
 
-const interSans = Inter({
-  variable: '--font-sans',
-  subsets: ['latin'],
-  weight: ['400', '500', '600', '700', '800'],
-})
+const publicSans = Public_Sans({ subsets: ['latin'], variable: '--font-sans' })
 
 export const metadata: Metadata = {
   title: 'Abraço Amigo',
@@ -27,16 +23,24 @@ export default function RootLayout({
 }>) {
   return (
     <html
-      className={cn(publicSansHeading.variable)}
+      className={cn(
+        publicSansHeading.variable,
+        'font-sans',
+        publicSans.variable
+      )}
       lang="pt-BR"
       suppressHydrationWarning
     >
       <body
-        className={`${interSans.variable} flex min-h-screen flex-col bg-neutral-50 font-sans`}
+        className={cn(
+          publicSans.variable,
+          'flex min-h-screen flex-col bg-neutral-50 font-sans dark:bg-neutral-950'
+        )}
         suppressHydrationWarning
       >
         <Toaster position="top-right" richColors />
-        <AuthProvider>{children}</AuthProvider>
+
+        <Providers>{children}</Providers>
       </body>
     </html>
   )

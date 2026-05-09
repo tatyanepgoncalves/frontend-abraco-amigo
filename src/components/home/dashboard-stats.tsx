@@ -40,28 +40,36 @@ export function DashboardStats({ locations }: StatsProps) {
   return (
     <section className="mb-8 grid grid-cols-1 gap-4 md:grid-cols-3">
       {/* Total de Locais - Estático vindo da API/Mock */}
-      <div className="rounded-lg border-blue-500 border-l-4 bg-white p-4 shadow-sm">
-        <p className="font-bold text-slate-500 text-sm uppercase tracking-wider">
+      <div className="rounded-lg border-blue-500 border-l-4 bg-white p-4 shadow-sm dark:bg-neutral-800">
+        <p className="font-bold text-slate-500 text-sm uppercase tracking-wider dark:text-neutral-300">
           Total de Locais
         </p>
-        <p className="font-bold text-2xl">{locations.length}</p>
+        <p className="font-bold text-2xl dark:text-neutral-200">
+          {locations.length}
+        </p>
       </div>
 
       {/* Necessidades Críticas - Calculado dinamicamente */}
-      <div className="rounded-lg border-red-500 border-l-4 bg-white p-4 shadow-sm">
-        <p className="font-bold text-slate-500 text-sm uppercase tracking-wider">
+      <div className="rounded-lg border-red-500 border-l-4 bg-white p-4 shadow-sm dark:bg-neutral-800">
+        <p className="font-bold text-slate-500 text-sm uppercase tracking-wider dark:text-neutral-300">
           Locais em Emergência
         </p>
-        <p className="font-bold text-2xl">{criticalNeedsCount}</p>
-        <p className="text-[10px] text-slate-400">Locais com urgência alta</p>
+        <p className="font-bold text-2xl dark:text-neutral-200">
+          {criticalNeedsCount}
+        </p>
+        <p className="text-[10px] text-slate-400 dark:text-neutral-400">
+          Locais com urgência alta
+        </p>
       </div>
 
       {/* Voluntários Ativos - Soma do Mock + Suas inscrições no LocalStorage */}
-      <div className="rounded-lg border-green-500 border-l-4 bg-white p-4 shadow-sm">
-        <p className="font-bold text-slate-500 text-sm uppercase tracking-wider">
+      <div className="rounded-lg border-green-500 border-l-4 bg-white p-4 shadow-sm dark:bg-neutral-800">
+        <p className="font-bold text-slate-500 text-sm uppercase tracking-wider dark:text-neutral-300">
           Total de voluntários
         </p>
-        <p className="font-bold text-2xl text-green-600">{totalVolunteers}</p>
+        <p className="font-bold text-2xl text-green-600 dark:text-neutral-200">
+          {totalVolunteers}
+        </p>
       </div>
     </section>
   )

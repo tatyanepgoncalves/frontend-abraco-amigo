@@ -30,7 +30,7 @@ export default function CandidacyForm({
     <div className="fade-in slide-in-from-bottom-4 animate-in space-y-6 duration-500">
       <div className="space-y-4">
         {/* Escolha do Tipo */}
-        <div className="grid grid-cols-2 gap-2 rounded-lg bg-slate-100 p-1">
+        <div className="grid grid-cols-2 gap-2 rounded-lg bg-slate-100 p-1 dark:bg-neutral-900">
           <Button
             className="text-xs"
             onClick={() => setType('trabalho')}

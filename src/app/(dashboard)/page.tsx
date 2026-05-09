@@ -6,12 +6,7 @@ export default async function Home() {
   const locations = await getLocations()
 
   return (
-    <main className="w-full p-6">
-      <header className="mb-8">
-        <h1 className="font-bold text-3xl text-slate-900">Abraço Amigo</h1>
-        <p className="text-slate-600">Central de Coordenação de Esforços</p>
-      </header>
-
+    <div className="w-full p-6">
       {/* Grid de KPIs Rápidos */}
       <DashboardStats locations={locations} />
 
@@ -21,6 +16,6 @@ export default async function Home() {
           <LocationCard key={loc.id} location={loc} />
         ))}
       </section>
-    </main>
+    </div>
   )
 }
