@@ -1,7 +1,12 @@
 'use client'
 
+import { zodResolver } from '@hookform/resolvers/zod'
+import { setCookie } from 'cookies-next'
 import { ArrowRight, Loader2 } from 'lucide-react'
 import Link from 'next/link'
+import { useRouter } from 'next/navigation'
+import { Controller, useForm } from 'react-hook-form'
+import { toast } from 'sonner'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
@@ -12,50 +17,77 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select'
-import useRegister from '@/hooks/use-register'
+import { useAuth } from '@/context/AuthContext'
+import { COOKIE_NAME } from '@/lib/axios'
+import { type RegisterFormData, registerSchema } from '@/schema/register-schema'
+import { registerUser } from '@/services/auth-service'
 
 export default function Cadastrar() {
+  const { login } = useAuth()
+
   const {
-    loading,
+    register,
+    handleSubmit,
+    control,
+    formState: { errors, isSubmitting },
+  } = useForm<RegisterFormData>({
+    resolver: zodResolver(registerSchema),
+    defaultValues: {
+      nome: '',
+      email: '',
+      senha: '',
+      confirmarSenha: '',
+      tipoUsuario: 'VOLUNTARIO',
+    },
+  })
+  const router = useRouter()
 
-    nome,
-    email,
-    tipoUsuario,
-    senha,
-    confirmarSenha,
+  async function onSubmit(data: RegisterFormData) {
+    try {
+      const response = await registerUser(data)
 
-    setNome,
-    setEmail,
-    setTipoUsuario,
-    setSenha,
-    setConfirmarSenha,
+      if (response.token) {
+        setCookie(COOKIE_NAME, response.token, {
+          maxAge: 60 * 60 * 24 * 7,
+          path: '/',
+          sameSite: 'lax',
+        })
+      }
 
-    handleCadastro,
-  } = useRegister()
+      login(response.usuario)
+
+      toast.success(response.message)
+      router.push('/home')
+      // biome-ignore lint/suspicious/noExplicitAny: it's necessary
+    } catch (error: any) {
+      toast.error(error.message)
+    }
+  }
 
   return (
     <section className="h-fit w-full space-y-8 rounded-xl bg-card p-4 shadow-md sm:max-w-xl sm:p-6">
       <div className="text-center">
-        <h1 className="font-bold text-2xl text-zinc-900 dark:text-zinc-100 md:text-3xl">
+        <h1 className="font-bold text-2xl text-zinc-900 md:text-3xl dark:text-zinc-100">
           Crie uma conta
         </h1>
-        <p className="text-neutral-600 dark:text-zinc-300 text-sm">
+        <p className="text-neutral-600 text-sm dark:text-zinc-300">
           Inscreva-se no Abraço Amigo para iniciar sua jornada.
         </p>
       </div>
 
-      <form className="space-y-4" onSubmit={handleCadastro}>
+      <form className="space-y-4" onSubmit={handleSubmit(onSubmit)}>
         {/* NOME COMPLETO */}
         <div className="space-y-2">
           <Label htmlFor="nome">Nome completo</Label>
           <Input
             id="nome"
-            onChange={(e) => setNome(e.target.value)}
+            {...register('nome')}
             placeholder="ex: João Teixeira"
-            required
             type="text"
-            value={nome}
           />
+          {errors.nome && (
+            <p className="text-red-500 text-sm">{errors.nome.message}</p>
+          )}
         </div>
 
         {/* EMAIL */}
@@ -63,11 +95,9 @@ export default function Cadastrar() {
           <Label htmlFor="email">E-mail</Label>
           <Input
             id="email"
-            onChange={(e) => setEmail(e.target.value)}
+            {...register('email')}
             placeholder="ex: joaoteixeira@exemplo.com"
-            required
             type="email"
-            value={email}
           />
         </div>
 
@@ -75,28 +105,35 @@ export default function Cadastrar() {
         <div className="space-y-2">
           <Label htmlFor="tipo-usuario">Tipo de Usuário</Label>
 
-          <Select onValueChange={setTipoUsuario} value={tipoUsuario}>
-            <SelectTrigger className="w-full" id="tipo-usuario">
-              <SelectValue placeholder="Selecione um tipo de usuário" />
-            </SelectTrigger>
+          <Controller
+            control={control}
+            name="tipoUsuario"
+            render={({ field }) => (
+              <Select onValueChange={field.onChange} value={field.value}>
+                <SelectTrigger className="w-full">
+                  <SelectValue placeholder="Selecione um tipo de usuário" />
+                </SelectTrigger>
 
-            <SelectContent>
-              <SelectItem value="GESTOR">Gestor</SelectItem>
-              <SelectItem value="VOLUNTARIO">Voluntário</SelectItem>
-            </SelectContent>
-          </Select>
+                <SelectContent>
+                  <SelectItem value="GESTOR">Gestor</SelectItem>
+                  <SelectItem value="VOLUNTARIO">Voluntário</SelectItem>
+                </SelectContent>
+              </Select>
+            )}
+          />
+
+          {errors.tipoUsuario && (
+            <p className="text-red-500 text-sm">{errors.tipoUsuario.message}</p>
+          )}
         </div>
 
         {/* SENHA */}
         <div className="space-y-2">
           <Label htmlFor="senha">Senha</Label>
-          <Input
-            id="senha"
-            onChange={(e) => setSenha(e.target.value)}
-            required
-            type="password"
-            value={senha}
-          />
+          <Input id="senha" required type="password" {...register('senha')} />
+          {errors.senha && (
+            <p className="text-red-500 text-sm">{errors.senha.message}</p>
+          )}
         </div>
 
         {/* CONFIRMAR SENHA */}
@@ -104,25 +141,34 @@ export default function Cadastrar() {
           <Label htmlFor="confirmar-senha">Confirmar Senha</Label>
           <Input
             id="confirmar-senha"
-            onChange={(e) => setConfirmarSenha(e.target.value)}
+            {...register('confirmarSenha')}
             required
             type="password"
-            value={confirmarSenha}
           />
+          {errors.confirmarSenha && (
+            <p className="text-red-500 text-sm">
+              {errors.confirmarSenha.message}
+            </p>
+          )}
         </div>
 
         {/* BUTTON & LINK */}
         <div className="space-y-2">
           <Button
             className="flex w-full items-center justify-center"
-            disabled={loading}
+            disabled={isSubmitting}
             type="submit"
           >
-            <span> {loading ? 'Cadastrando...' : 'Cadastrar'}</span>
-            {loading ? (
-              <Loader2 className="h-4 w-4 animate-spin" />
+            {isSubmitting ? (
+              <>
+                <span>'Cadastrando...'</span>
+                <Loader2 className="h-4 w-4 animate-spin" />
+              </>
             ) : (
-              <ArrowRight className="h-4 w-4" />
+              <>
+                <span>Cadastrar</span>
+                <ArrowRight className="h-4 w-4" />
+              </>
             )}
           </Button>
           <p className="text-center text-neutral-700 text-xs dark:text-zinc-400">

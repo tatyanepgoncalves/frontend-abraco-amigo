@@ -1,5 +1,6 @@
 'use client'
 
+import { deleteCookie, getCookie } from 'cookies-next'
 import { usePathname, useRouter } from 'next/navigation'
 import {
   createContext,
@@ -8,13 +9,9 @@ import {
   useEffect,
   useState,
 } from 'react'
-
-interface Usuario {
-  email: string
-  id: string
-  nome: string
-  tipoUsuario: 'GESTOR' | 'VOLUNTARIO'
-}
+import { COOKIE_NAME } from '@/lib/axios'
+import type { Usuario } from '@/lib/types'
+import { logoutUser } from '@/services/auth-service'
 
 interface AuthContextType {
   loading: boolean
@@ -35,15 +32,19 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const publicRoutes = ['/', '/entrar', '/cadastrar']
 
   useEffect(() => {
-    const loadStorageData = () => {
+    const loadData = () => {
+      const token = getCookie(COOKIE_NAME)
+
       const savedUser = localStorage.getItem('usuario-logado')
-      if (savedUser) {
+      if (token && savedUser) {
         setUser(JSON.parse(savedUser))
+      } else {
+        setUser(null)
       }
       setLoading(false)
     }
 
-    loadStorageData()
+    loadData()
   }, [])
 
   // Proteção de Rotas
@@ -54,24 +55,35 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       if (!(user || isPublicRoute)) {
         router.push('/entrar')
       }
+
+      // Se já está logado e tenta ir para login/cadastro -> Home
+      if (user && pathname === '/entrar') {
+        router.push('/home')
+      }
     }
-  }, [user, loading, pathname])
+  }, [user, loading, pathname, router])
 
   const login = (userData: Usuario) => {
     setUser(userData)
     localStorage.setItem('usuario-logado', JSON.stringify(userData))
-    router.push('/dashboard')
   }
 
-  const logout = () => {
-    setUser(null)
-    localStorage.removeItem('usuario-logado')
-    router.push('/entrar')
+  const logout = async () => {
+    try {
+      await logoutUser()
+    } catch (error) {
+      console.error('Incapaz de invalidar sessão no servidor.', error)
+    } finally {
+      setUser(null)
+      localStorage.removeItem('usuario-logado')
+      deleteCookie(COOKIE_NAME)
+      router.push('/entrar')
+    }
   }
 
   return (
     <AuthContext.Provider value={{ user, loading, login, logout }}>
-      {children}
+      {!loading && children}
     </AuthContext.Provider>
   )
 }

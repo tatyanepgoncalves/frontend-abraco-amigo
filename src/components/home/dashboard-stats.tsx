@@ -4,9 +4,10 @@ import { useEffect, useState } from 'react'
 
 interface StatsProps {
   locations: any[]
+  type?: string
 }
 
-export function DashboardStats({ locations }: StatsProps) {
+export function DashboardStats({ locations, type }: StatsProps) {
   const [mySubscribingCount, setMySubscribingCount] = useState(0)
 
   useEffect(() => {
@@ -25,6 +26,8 @@ export function DashboardStats({ locations }: StatsProps) {
     window.addEventListener('storage', handleStorageChange)
     return () => window.removeEventListener('storage', handleStorageChange)
   }, [])
+
+
 
   // Calculamos as necessidades críticas dinamicamente dos dados
   const criticalNeedsCount = locations.reduce((acc, loc) => {
@@ -62,13 +65,15 @@ export function DashboardStats({ locations }: StatsProps) {
         </p>
       </div>
 
-      {/* Voluntários Ativos - Soma do Mock + Suas inscrições no LocalStorage */}
+       {/* Voluntários Ativos - Soma do Mock + Suas inscrições no LocalStorage */}
       <div className="rounded-lg border-green-500 border-l-4 bg-white p-4 shadow-sm dark:bg-neutral-800">
         <p className="font-bold text-slate-500 text-sm uppercase tracking-wider dark:text-neutral-300">
-          Total de voluntários
+          {type === 'manager' ? 'Voluntários na Unidade' : 'Total de Voluntários'}
         </p>
         <p className="font-bold text-2xl text-green-600 dark:text-neutral-200">
-          {totalVolunteers}
+          {type === 'manager' 
+            ? locations.find(l => l.id === '1')?.currentVolunteers // Simulação: pega do local que ele gere
+            : totalVolunteers}
         </p>
       </div>
     </section>

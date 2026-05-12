@@ -40,5 +40,11 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 
-src/components/dashboard/
 src/app/(dropdown)/
+
+src/components/home/
+src/components/home-system/
+src/components/layout/
+
+src/hooks/use-home.ts
+src/app/(system)/home/

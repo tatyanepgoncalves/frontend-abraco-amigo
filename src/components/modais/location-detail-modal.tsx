@@ -130,7 +130,7 @@ export function LocationDetailsModal({
                 Itens Necessários
               </h4>
 
-              {location.needs.map((need) => {
+              {location.needs?.map((need) => {
                 const received = need.quantityReceived || 0
                 const total = need.quantityNeeded || 1 // Evita divisão por zero
                 const itemProgress = Math.min(

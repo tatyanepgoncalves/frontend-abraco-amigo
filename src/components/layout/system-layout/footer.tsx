@@ -3,7 +3,9 @@ export default function Footer() {
 
   return (
     <footer className="flex items-center justify-center py-4">
-      <p className="text-neutral-500 text-xs">&copy; {year} - Abraço Amigo</p>
+      <p className="text-muted-foreground text-xs">
+        &copy; {year} - Abraço Amigo
+      </p>
     </footer>
   )
 }

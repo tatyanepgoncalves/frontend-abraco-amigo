@@ -1,75 +1,60 @@
+import { zodResolver } from '@hookform/resolvers/zod'
+import { setCookie } from 'cookies-next'
 import { useRouter } from 'next/navigation'
-import type React from 'react'
-import { useState } from 'react'
+import { useForm } from 'react-hook-form'
 import { toast } from 'sonner'
 import { useAuth } from '@/context/AuthContext'
+import { COOKIE_NAME } from '@/lib/axios'
+import { type LoginFormData, loginSchema } from '@/schema/login-schema'
+import { loginUser } from '@/services/auth-service'
 
 export default function useLogin() {
   const { login } = useAuth()
   const router = useRouter()
-  const [isLoading, setIsLoading] = useState<boolean>(false)
+  const {
+    register,
+    handleSubmit,
+    formState: { errors, isSubmitting },
+  } = useForm<LoginFormData>({
+    resolver: zodResolver(loginSchema),
+    defaultValues: {
+      email: '',
+      senha: '',
+    },
+  })
 
-  // Estados do formulario
-  const [email, setEmail] = useState('')
-  const [senha, setSenha] = useState('')
+  async function onSubmit(data: LoginFormData) {
+    try {
+      const response = await loginUser(data)
 
-  const handleLogin = (e: React.FormEvent) => {
-    e.preventDefault()
-
-    if (email.trim() === '' && senha.trim() === '') {
-      toast.error('E-mail e senha são necessários')
-
-      return
-    }
-
-    if (email.trim() === '') {
-      toast.error('E-mail é necessário.')
-
-      return
-    }
-
-    if (senha.trim() === '') {
-      toast.error('Senha é necessário.')
-    }
-
-    // Simulação de delay de rede
-    setTimeout(() => {
-      // Buscar usuários do localStorage
-      const usuariosSalvos = localStorage.getItem('usuarios-mock')
-      const usuarios = usuariosSalvos ? JSON.parse(usuariosSalvos) : []
-
-      // Tenta encontrar o usuário com as mesmas credenciais
-      const usuarioEncontrado = usuarios.find(
-        // biome-ignore lint/suspicious/noExplicitAny: it's necessary here
-        (u: any) => u.email === email && u.senha === senha
-      )
-
-      if (usuarioEncontrado) {
-        toast.success(`Bem-vindo, ${usuarioEncontrado.nome.split(' ')[0]}!`)
-
-        // Simula salvar sessão (token ou dados do user)
-        login(usuarioEncontrado)
-
-        // Redirecionar baseado no tipo de usuário ou para a home
-        router.push('/home')
-      } else {
-        toast.error('E-mail ou senha incorretos.')
+      if (response.token) {
+        setCookie(COOKIE_NAME, response.token, {
+          maxAge: 60 * 60 * 24 * 7, // 7 days
+          path: '/',
+          sameSite: 'lax',
+        })
       }
 
-      setIsLoading(false)
-    }, 1000)
+      if (response.user) {
+        login(response.user)
+        const firstName = response.user.nome.split(' ')[0]
+        toast.success(
+          `Login realizado com sucesso! Bem-vindo de volta, ${firstName}`
+        )
+      }
+
+      router.push('/home')
+      // biome-ignore lint/suspicious/noExplicitAny: it's necessary
+    } catch (error: any) {
+      toast.error(error.message)
+    }
   }
 
   return {
-    isLoading,
-
-    email,
-    senha,
-
-    setIsLoading,
-    setEmail,
-    setSenha,
-
-    handleLogin,
+    register,
+    handleSubmit,
+    errors,
+    isSubmitting,
+    onSubmit,
   }
 }

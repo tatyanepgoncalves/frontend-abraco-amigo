@@ -1,5 +1,5 @@
 'use client'
 
 export default function AuthError() {
-  return <div>error</div>
+  return <div>Error</div>
 }
