@@ -12,6 +12,7 @@ import {
 import { COOKIE_NAME } from '@/lib/axios'
 import type { Usuario } from '@/lib/types'
 import { logoutUser } from '@/services/auth-service'
+import { getUserProfile } from '@/services/user-service'
 
 interface AuthContextType {
   loading: boolean
@@ -32,15 +33,21 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const publicRoutes = ['/', '/entrar', '/cadastrar']
 
   useEffect(() => {
-    const loadData = () => {
+    const loadData = async () => {
       const token = getCookie(COOKIE_NAME)
 
-      const savedUser = localStorage.getItem('usuario-logado')
-      if (token && savedUser) {
-        setUser(JSON.parse(savedUser))
-      } else {
-        setUser(null)
+      if (token) {
+        try {
+          const userData = await getUserProfile()
+          setUser(userData)
+          localStorage.setItem('usuario-logado', JSON.stringify(userData))
+        } catch (error) {
+          console.error('Erro ao buscar perfil do usuário:', error)
+          setUser(null)
+          logout()
+        }
       }
+
       setLoading(false)
     }
 
