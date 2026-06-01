@@ -1,5 +1,6 @@
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import DemandasTabs from './section-demandas-tabs/demandas-tabs'
+import LocaisTabs from './section-locais-tabs/locais-tabs'
 
 export default function SectionTabs() {
   return (
@@ -14,10 +15,7 @@ export default function SectionTabs() {
         <DemandasTabs />
       </TabsContent>
       <TabsContent value="locais">
-        <p className="text-muted-foreground text-sm">
-          Lista de últimos locais cadastrados ou com demandas com prioridade
-          CRITICA
-        </p>
+        <LocaisTabs />
       </TabsContent>
     </Tabs>
   )

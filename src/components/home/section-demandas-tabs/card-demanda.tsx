@@ -7,22 +7,8 @@ import { Badge } from '@/components/ui/badge'
 import { Field, FieldLabel } from '@/components/ui/field'
 import { Progress } from '@/components/ui/progress'
 import { cn } from '@/lib/utils'
+import type { Demanda } from '@/types/demanda'
 import DemandaDetails from './demanda-details'
-
-interface Demanda {
-  descricao: string | null
-  id: string
-  imagem: string | null
-  prioridade: 'BAIXA' | 'MEDIA' | 'ALTA' | 'CRITICA'
-  quantidade: number
-  quantidadeArrecadada: number
-  status: 'ABERTA' | 'COMPLETA' | 'CANCELADA'
-  tipo: 'INSUMO' | 'VOLUNTARIADO'
-  titulo: string
-  unidadeMedida: 'KG' | 'LITROS' | 'UNIDADES' | 'PACOTES'
-  voluntariosConfirmados: number
-  voluntariosNecessarios: number
-}
 
 interface CardDemandaProps {
   demanda: Demanda
