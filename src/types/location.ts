@@ -18,3 +18,16 @@ export interface Location {
   vagasTotais: number
   vagasVoluntariadoAbertas: number
 }
+
+export interface LocationDetails extends Location {
+  demandas?: Array<{
+    id: string
+    titulo: string
+    descricao: string | null
+    imagem: string | null
+    status: string
+    tipo: string
+    prioridade: string
+  }>
+  gestor?: { nome: string }
+}
