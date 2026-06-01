@@ -1,4 +1,3 @@
-import Footer from '@/components/layout/public/footer'
 import Header from '@/components/layout/public/header'
 
 interface LayoutPublicProps {
@@ -10,7 +9,6 @@ export default function LayoutPublic({ children }: LayoutPublicProps) {
     <div className="space-y-8">
       <Header />
       <section>{children}</section>
-      <Footer />
     </div>
   )
 }

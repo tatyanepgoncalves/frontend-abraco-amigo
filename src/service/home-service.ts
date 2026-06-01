@@ -12,3 +12,14 @@ export async function getStatsPublic() {
     throw new Error(message)
   }
 }
+
+export async function getLastestDemandas() {
+  try {
+    const response = await api.get('/demandas/ultimas')
+    return response.data?.demandas ?? []
+    // biome-ignore lint/complexity/noUselessCatchBinding: it's necessary here
+    // biome-ignore lint/correctness/noUnusedVariables: it's necessary here
+  } catch (error) {
+    return []
+  }
+}

@@ -19,14 +19,11 @@ export default function RootLayout({
 }>) {
   return (
     <html
-      className={cn('h-full', 'antialiased', 'font-sans', outfit.variable)}
+      className={cn('antialiased', 'font-sans', outfit.variable)}
       lang="pt-BR"
       suppressHydrationWarning
     >
-      <body
-        className="flex min-h-full flex-col bg-zinc-50 dark:bg-zinc-950"
-        suppressHydrationWarning
-      >
+      <body className="flex min-h-screen flex-col bg-zinc-50 dark:bg-zinc-950">
         <Toaster position="top-center" richColors />
         <Providers>{children}</Providers>
       </body>
