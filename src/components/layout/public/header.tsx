@@ -14,7 +14,12 @@ export default function Header() {
           </p>
         </Link>
 
-        <ThemeToggle />
+        <div className="flex items-center gap-6">
+          <div>
+            <Link href="/cadastrar">Cadastrar</Link>
+          </div>
+          <ThemeToggle />
+        </div>
       </div>
     </header>
   )

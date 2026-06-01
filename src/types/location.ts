@@ -7,9 +7,13 @@ export interface Location {
   doacoesRecebidas: number
   email: string | null
   endereco: string
-  gestorId: string
+  gestor: {
+    id: string
+    nome: string
+  }
   id: string
   imagem: string | null
+  length: number
   nome: string
   possuiUrgenciaAlta: boolean
   telefone: string
@@ -29,5 +33,4 @@ export interface LocationDetails extends Location {
     tipo: string
     prioridade: string
   }>
-  gestor?: { nome: string }
 }

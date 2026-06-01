@@ -17,9 +17,11 @@ export default async function DemandasTabs() {
       </div>
       <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
         {lastDemandas.length === 0 ? (
-          <p className="text-zinc-500 dark:text-neutral-400">
-            Nenhuma demanda encontrada.
-          </p>
+          <div className="col-span-4 w-full rounded-xl border border-zinc-300 border-dashed bg-card p-12 text-center dark:border-zinc-600">
+            <p className="text-zinc-500 dark:text-neutral-400">
+              Nenhuma demanda encontrada.
+            </p>
+          </div>
         ) : (
           lastDemandas.map((demanda) => (
             <CardDemanda demanda={demanda} key={demanda.id} />

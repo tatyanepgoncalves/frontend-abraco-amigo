@@ -15,7 +15,7 @@ export default function SectionStatsPublic({ stats }: StatsProps) {
   if (!stats) {
     // Se estiver nulo (erro ou sem dados), não renderiza a seção
     return (
-      <div className="w-full rounded-lg border bg-zinc-50 p-4 text-center text-zinc-500 dark:border-zinc-800 dark:bg-zinc-900">
+      <div className="w-full rounded-xl border border-zinc-300 border-dashed bg-card p-12 text-center text-zinc-500 dark:border-zinc-600 dark:text-zinc-400">
         Estatísticas temporariamente indisponíveis.
       </div>
     )

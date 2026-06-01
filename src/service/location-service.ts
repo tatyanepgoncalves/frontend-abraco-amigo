@@ -1,24 +1,30 @@
 import { api } from '@/lib/axios'
+import type { Location, LocationDetails } from '@/types/location'
 
-export async function getLocationWithoutFilter() {
+export async function getLocationWithoutFilter(): Promise<Location[]> {
   try {
     const response = await api.get('/home/locais')
-    return response.data
-    // biome-ignore lint/complexity/noUselessCatchBinding: it's necessary
-    // biome-ignore lint/correctness/noUnusedVariables: it's necessary
+
+    return response.data?.locais ?? []
+
+    // biome-ignore lint/complexity/noUselessCatchBinding: it's necessary here
+    // biome-ignore lint/correctness/noUnusedVariables: it's necessary here
   } catch (error) {
-    throw new Error('Erro ao buscar locais')
+    return []
   }
 }
 
-export async function getLocationById(id: string) {
+export async function getLocationById(id: string): Promise<LocationDetails> {
   try {
-    const response = await api.get(`/locais/${id}`)
-    return response.data
+    const response = await api.get<LocationDetails>(`/locais/${id}`)
 
-    // biome-ignore lint/complexity/noUselessCatchBinding: it's necessary
-    // biome-ignore lint/correctness/noUnusedVariables: it's necessary
+    return response.data
   } catch (error) {
-    throw new Error('Erro ao buscar local pelo ID')
+    console.error(`Erro ao buscar local ${id}:`, error)
+    throw new Error(
+      error instanceof Error
+        ? error.message
+        : 'Erro ao buscar detalhes do local.'
+    )
   }
 }

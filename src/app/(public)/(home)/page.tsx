@@ -8,7 +8,7 @@ export default async function Home() {
   const stats = await getStatsPublic().catch(() => null)
 
   return (
-    <div className="px-6">
+    <div className="space-y-8 px-6">
       <SectionStatsPublic stats={stats} />
       <SectionTabs />
     </div>
