@@ -16,17 +16,15 @@ export default async function LocaisTabs() {
         </p>
       </div>
 
-      <section className="grid md:grid-cols-2 lg:grid-cols-4">
+      <section className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
         {locations.length === 0 ? (
           <div className="w-full rounded-xl border border-zinc-300 border-dashed bg-card p-12 text-center md:col-span-2 lg:col-span-4 dark:border-zinc-600">
             <p className="text-zinc-500 dark:text-zinc-400">
               Nenhum local cadastrado.
             </p>
           </div>
-        ): (
-          locations.map((local) => (
-            <CardLocais key={local.id} locais={local} />
-          ))
+        ) : (
+          locations.map((local) => <CardLocais key={local.id} locais={local} />)
         )}
       </section>
 

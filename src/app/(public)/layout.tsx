@@ -6,9 +6,9 @@ interface LayoutPublicProps {
 
 export default function LayoutPublic({ children }: LayoutPublicProps) {
   return (
-    <div className="space-y-8">
+    <div className="min-h-screen space-y-8">
       <Header />
-      <section>{children}</section>
+      <section className="">{children}</section>
     </div>
   )
 }
