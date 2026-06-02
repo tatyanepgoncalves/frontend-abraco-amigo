@@ -3,6 +3,7 @@
 import { Search } from 'lucide-react'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
+import ThemeToggle from '@/components/layout/theme-toggle'
 import { Button } from '@/components/ui/button'
 import { useAuth } from '@/context/auth-context'
 import useLogout from '@/hooks/auth/use-logout'
@@ -15,7 +16,11 @@ export default function NotFound() {
 
   return (
     // Adicionado bg-zinc-950 para dar contraste com as cores claras que você escolheu
-    <div className="flex h-screen w-full flex-col items-center justify-center bg-zinc-950 p-4 text-white">
+    <div className="relative flex h-screen w-full flex-col items-center justify-center p-4">
+      <div className="absolute top-10 right-10">
+        <ThemeToggle />
+      </div>
+
       <div className="flex w-full max-w-md flex-col items-center justify-center gap-6 py-8">
         {/* CONTAINER DO ÍCONE + 404 */}
         <div className="relative flex w-full items-center justify-center">
