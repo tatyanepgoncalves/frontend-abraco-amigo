@@ -3,6 +3,7 @@
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { ThemeProvider as NextThemesProvider } from 'next-themes'
 import { useState } from 'react'
+import { AuthProvider } from '@/context/auth-context'
 
 export function Providers({ children }: { children: React.ReactNode }) {
   const queryClient = useState(() => new QueryClient())
@@ -14,7 +15,7 @@ export function Providers({ children }: { children: React.ReactNode }) {
         disableTransitionOnChange
         enableSystem
       >
-        {children}
+        <AuthProvider>{children}</AuthProvider>
       </NextThemesProvider>
     </QueryClientProvider>
   )
