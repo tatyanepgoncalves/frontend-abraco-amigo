@@ -1,5 +1,5 @@
 import { api } from '@/lib/axios'
-import type { RegisterFormData } from '@/schema/auth-schema'
+import type { LoginFormData, RegisterFormData } from '@/schema/auth-schema'
 
 export async function registerUser(data: RegisterFormData) {
   try {
@@ -10,6 +10,19 @@ export async function registerUser(data: RegisterFormData) {
     // biome-ignore lint/suspicious/noExplicitAny: it's necessary
   } catch (error: any) {
     const message = error.response?.data?.message || 'Erro ao cadastrar usuário'
+    console.log(error.response?.data)
+    throw new Error(message)
+  }
+}
+
+export async function loginUser(data: LoginFormData) {
+  try {
+    const response = await api.post('/login', data)
+    return response.data
+
+    // biome-ignore lint/suspicious/noExplicitAny: it's necessary
+  } catch (error: any) {
+    const message = error.response?.data?.message || 'Error ao realizar login.'
     console.log(error.response?.data)
     throw new Error(message)
   }

@@ -122,7 +122,7 @@ export default function FormCadastrar() {
           </Button>
           <p className="text-muted-foreground text-xs">
             Já possui conta?{' '}
-            <Link className="font-medium" href="/entrar">
+            <Link className="font-medium hover:underline" href="/entrar">
               Entrar na conta
             </Link>
           </p>
