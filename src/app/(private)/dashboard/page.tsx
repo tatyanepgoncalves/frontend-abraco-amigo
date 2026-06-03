@@ -3,7 +3,7 @@ import SectionStatsManagers from '@/components/dashboard/stats/section-stats-man
 import { getStatsGeneral, getStatsManager } from '@/service/home-service'
 import { getUserProfile } from '@/service/user-service'
 
-export default async function Home() {
+export default async function Dashboard() {
   const [usuario, statsGestores, statsGerais] = await Promise.all([
     getUserProfile().catch(() => null),
     getStatsManager().catch(() => null),

@@ -38,7 +38,7 @@ export default function useRegisterUser() {
       login(response.usuario)
 
       toast.success(response.message)
-      router.push('/home')
+      router.push('/dashboard')
       // biome-ignore lint/suspicious/noExplicitAny: it's necessary
     } catch (error: any) {
       toast.error(error.message)

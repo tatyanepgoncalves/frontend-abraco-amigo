@@ -80,9 +80,9 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         router.push('/entrar')
       }
 
-      // Se já está logado e tenta ir para login/cadastro -> Home
+      // Se já está logado e tenta ir para login/cadastro -> Dashboard
       if (user && pathname === '/entrar') {
-        router.push('/home')
+        router.push('/dashboard')
       }
     }
   }, [user, loading, pathname, router])

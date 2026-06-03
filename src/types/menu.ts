@@ -1,20 +1,21 @@
+import { Boxes, HomeIcon, User } from 'lucide-react'
+
 export const menuLinks = [
   {
     label: 'Início',
-    link: '/home',
+    link: '/dashboard',
+    icon: HomeIcon,
   },
   {
-    label: 'Sobre',
-    link: '/about',
-  },
-  {
-    label: 'Contato',
-    link: '/contact',
+    label: 'Demandas',
+    link: '/demandas',
+    icon: Boxes,
   },
 ]
 export const DropdownMenuLinks = [
   {
     label: 'Conta',
     link: '/conta',
+    icon: User,
   },
 ]

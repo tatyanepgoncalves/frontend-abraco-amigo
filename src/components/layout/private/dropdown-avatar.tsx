@@ -59,7 +59,7 @@ export default function DropdownAvatar() {
       {!isLoading && (
         <DropdownMenuContent
           align="center"
-          className="w-[calc(100vw-3rem)] max-w-70 space-y-3 px-2 py-6 dark:bg-zinc-900"
+          className="w-[calc(100vw-3rem)] max-w-100 space-y-3 px-2 py-6 sm:max-w-85 md:max-w-55 dark:bg-zinc-900"
           sideOffset={6}
         >
           {DropdownMenuLinks.map((item) => (

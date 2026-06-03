@@ -39,7 +39,7 @@ export default function useLogin() {
         )
       }
 
-      router.push('/home')
+      router.push('/dashboard')
       // biome-ignore lint/suspicious/noExplicitAny: it's necessary
     } catch (error: any) {
       const apiMessage =
