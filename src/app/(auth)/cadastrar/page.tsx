@@ -1,5 +1,11 @@
+import type { Metadata } from 'next'
 import FormCadastrar from '@/components/cadastrar/form-cadastrar'
 import ImageCadastrar from '@/components/cadastrar/image-cadastrar'
+
+export const metadata: Metadata = {
+  title: 'Cadastrar | Abraco Amigo',
+  description: 'Crie sua conta na Central de Coordenação de Apoio.',
+}
 
 export default function Cadastrar() {
   return (

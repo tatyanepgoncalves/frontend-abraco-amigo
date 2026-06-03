@@ -1,5 +1,11 @@
+import type { Metadata } from 'next'
 import FormEntrar from '@/components/entrar/form-entrar'
 import ImageEntrar from '@/components/entrar/image-entrar'
+
+export const metadata: Metadata = {
+  title: 'Entrar | Abraco Amigo',
+  description: 'Acesse sua conta na Central de Coordenação de Apoio.',
+}
 
 export default function Entrar() {
   return (
