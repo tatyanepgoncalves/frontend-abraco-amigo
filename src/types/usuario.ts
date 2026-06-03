@@ -6,5 +6,5 @@ export interface Usuario {
   nome: string
   senha: string
   telefone: string | null
-  tipoUsuario: 'VOLUNTARIO' | 'INSTITUICAO'
+  tipoUsuario: 'VOLUNTARIO' | 'GESTOR'
 }
