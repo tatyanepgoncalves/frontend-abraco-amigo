@@ -4,8 +4,11 @@ import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import ThemeToggle from '../theme-toggle'
 
-export default function Header() {
+export default function Header({ isLoading = false }) {
   const pathname = usePathname()
+
+  // Desabilita links na home quando está carregando
+  const shouldDisableLinks = pathname === '/' && isLoading
 
   return (
     <header className="sticky top-0 w-full border-b bg-card px-6 py-4">
@@ -25,21 +28,29 @@ export default function Header() {
             {pathname === '/' && (
               <>
                 <Link
-                  className="transition-colors hover:text-zinc-900 dark:hover:text-zinc-100"
-                  href="/cadastrar"
+                  className={`transition-colors ${
+                    shouldDisableLinks
+                      ? 'pointer-events-none cursor-not-allowed opacity-50'
+                      : 'hover:text-zinc-900 dark:hover:text-zinc-100'
+                  }`}
+                  href={shouldDisableLinks ? '#' : '/cadastrar'}
                 >
                   Cadastrar
                 </Link>
                 <Link
-                  className="transition-colors hover:text-zinc-900 dark:hover:text-zinc-100"
-                  href="/entrar"
+                  className={`transition-colors ${
+                    shouldDisableLinks
+                      ? 'pointer-events-none cursor-not-allowed opacity-50'
+                      : 'hover:text-zinc-900 dark:hover:text-zinc-100'
+                  }`}
+                  href={shouldDisableLinks ? '#' : '/entrar'}
                 >
                   Entrar
                 </Link>
               </>
             )}
 
-            {/* Se tiver na página de cadastro ('/cadastrar'), mostra apenas o link de cadastrar */}
+            {/* Se tiver na página de cadastro ('/cadastrar'), mostra apenas o link de entrar */}
             {pathname === '/cadastrar' && (
               <Link
                 className="transition-colors hover:text-zinc-900 dark:hover:text-zinc-100"
@@ -49,7 +60,7 @@ export default function Header() {
               </Link>
             )}
 
-            {/* Se tiver na página de entrar ('/entrar'), mostra apenas o link de entrar */}
+            {/* Se tiver na página de entrar ('/entrar'), mostra apenas o link de cadastrar */}
             {pathname === '/entrar' && (
               <Link
                 className="transition-colors hover:text-zinc-900 dark:hover:text-zinc-100"
